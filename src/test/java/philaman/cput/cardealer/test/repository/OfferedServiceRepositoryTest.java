@@ -31,6 +31,7 @@ public class OfferedServiceRepositoryTest {
     private OfferedServiceRepository repo;
     private Long id;
     ServiceBookingRepository brepo;
+
     public OfferedServiceRepositoryTest() {
     }
 
@@ -38,7 +39,7 @@ public class OfferedServiceRepositoryTest {
     public void createOfferedService() {
         repo = ctx.getBean(OfferedServiceRepository.class);
         OfferedService offeredService = new OfferedService.Builder("Clutch Change")
-                .rate(230).durationhr("30 min").build();
+                .rate(230).durationhr(0.5).build();
         repo.save(offeredService);
         id = offeredService.getId();
         Assert.assertNotNull(offeredService);
@@ -48,21 +49,21 @@ public class OfferedServiceRepositoryTest {
     public void readOfferedService() {
         repo = ctx.getBean(OfferedServiceRepository.class);
         OfferedService offeredService = repo.findOne(id);
-        Assert.assertEquals("30 min", offeredService.getDurationhr());
+        Assert.assertEquals(0.5, offeredService.getDurationhr(), 0000.1);
     }
 
     @Test(dependsOnMethods = "readOfferedService")
     public void updateOfferedService() {
         repo = ctx.getBean(OfferedServiceRepository.class);
         OfferedService offeredService = repo.findOne(id);
-        List<ServiceBooking> booking=new ArrayList<>();
+        List<ServiceBooking> booking = new ArrayList<>();
         booking.add(new ServiceBooking.Builder("06-May-2014")
                 .serviceType("Installation").description("Brake pads installation").build());
-         booking.add(new ServiceBooking.Builder("06-May-2014")
+        booking.add(new ServiceBooking.Builder("06-May-2014")
                 .serviceType("Installation").description("Side-view mirror installation").build());
-         brepo=ctx.getBean(ServiceBookingRepository.class);
-         brepo.save(booking);
-         
+        brepo = ctx.getBean(ServiceBookingRepository.class);
+        brepo.save(booking);
+
         OfferedService updateOfferedService = new OfferedService.Builder("Clutch Change")
                 .offeredServices(offeredService)
                 .rate(350).serviceBooking(null).build();
@@ -86,7 +87,7 @@ public class OfferedServiceRepositoryTest {
 
     @AfterClass
     public void tearDownClass() throws Exception {
-        repo=ctx.getBean(OfferedServiceRepository.class);
+        repo = ctx.getBean(OfferedServiceRepository.class);
         repo.deleteAll();
     }
 

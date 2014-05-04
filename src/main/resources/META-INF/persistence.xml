@@ -11,12 +11,12 @@
     <class>philaman.cput.cardealer.domain.Dependent</class>
     <class>philaman.cput.cardealer.domain.SalesGrade</class>
     <class>philaman.cput.cardealer.domain.ServiceBooking</class>
-    <class>philaman.cput.cardealer.domain.Service</class>
     <class>philaman.cput.cardealer.domain.Brand</class>
     <class>philaman.cput.cardealer.domain.Customer</class>
     <class>philaman.cput.cardealer.domain.SalesPerson</class>
     <class>philaman.cput.cardealer.domain.OfferedService</class>
     <class>philaman.cput.cardealer.domain.Mechanic</class>
+    <class>philaman.cput.cardealer.domain.VehicleService</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/Lima"/>

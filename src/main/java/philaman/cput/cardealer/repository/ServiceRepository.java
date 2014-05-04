@@ -7,13 +7,13 @@ package philaman.cput.cardealer.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import philaman.cput.cardealer.domain.Service;
+import philaman.cput.cardealer.domain.VehicleService;
 
 /**
  *
  * @author phila
  */
 @Repository
-public interface ServiceRepository extends JpaRepository<Service, Long> {
+public interface ServiceRepository extends JpaRepository<VehicleService, Long> {
 
 }

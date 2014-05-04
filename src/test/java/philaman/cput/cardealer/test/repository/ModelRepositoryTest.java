@@ -40,7 +40,7 @@ public class ModelRepositoryTest {
         String features = "GTI Sports suspension, Anti-lock Braking System (ABS),Space saver spare wheel for temporary use, radial tire (5-hole)";
         Colour color = new Colour.Builder("body").color("white").build();
         Model model = new Model.Builder("GTI 7").modelDescr("Multicollision brake system fastest GTI")
-                .newFeatures(features).topSpeeed("300").colour(color).releaseYear("2013")
+                .newFeatures(features).topSpeeed(300).colour(color).releaseYear(2013)
                 .make("VW").bodyType("Sedan").build();
         repo.save(model);
         id = model.getId();
@@ -51,7 +51,7 @@ public class ModelRepositoryTest {
     public void readModel() {
         repo = ctx.getBean(ModelRepository.class);
         Model model = repo.findOne(id);
-        Assert.assertEquals("300", model.getTopSpeeed());;
+        Assert.assertEquals("300", model.getTopSpeeed());
     }
 
     @Test(dependsOnMethods = "readModel")
@@ -59,7 +59,7 @@ public class ModelRepositoryTest {
         repo = ctx.getBean(ModelRepository.class);
         Model model = repo.findOne(id);
 
-        Model updatModel = new Model.Builder("GTI 7").model(model).topSpeeed("320").build();
+        Model updatModel = new Model.Builder("GTI 7").model(model).topSpeeed(320).build();
         repo.save(updatModel);
         Assert.assertEquals("320", updatModel.getTopSpeeed());
     }
@@ -81,8 +81,8 @@ public class ModelRepositoryTest {
 
     @AfterClass
     public void tearDownClass() throws Exception {
-         repo = ctx.getBean(ModelRepository.class);
-         repo.deleteAll();
+        repo = ctx.getBean(ModelRepository.class);
+        repo.deleteAll();
     }
 
     @BeforeMethod

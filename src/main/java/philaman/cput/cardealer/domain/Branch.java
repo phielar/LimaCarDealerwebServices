@@ -35,7 +35,7 @@ public class Branch implements Serializable {
     private Address address;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "Branch_id")
-    private List<Service> services;
+    private List<VehicleService> services;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "Branch_id")
     private List<Model> models;
@@ -60,7 +60,7 @@ public class Branch implements Serializable {
         private int branchYearToDateSales;
         private Contact contact;
         private Address address;
-        private List<Service> services;
+        private List<VehicleService> services;
         private List<Model> models;
 
         public Builder(String branchname) {
@@ -77,7 +77,7 @@ public class Branch implements Serializable {
             return this;
         }
 
-        public Builder services(List<Service> value) {
+        public Builder services(List<VehicleService> value) {
             services = value;
             return this;
         }
@@ -134,7 +134,7 @@ public class Branch implements Serializable {
         return branchYearToDateSales;
     }
 
-    public List<Service> getServices() {
+    public List<VehicleService> getServices() {
         return services;
     }
 

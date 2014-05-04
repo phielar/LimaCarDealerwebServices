@@ -6,13 +6,14 @@
 package philaman.cput.cardealer.service;
 
 import java.util.List;
-import philaman.cput.cardealer.domain.Mechanic;
+import philaman.cput.cardealer.domain.OfferedService;
 
 /**
  *
  * @author phila
  */
-public interface SpecialistMechanicService {
+public interface TotalOfferedServicesService {
 
-    public List<Mechanic> getSpecialityMechanic(String speciality, String rating);
+    public List<OfferedService> getAllOfferedServices();
+
 }

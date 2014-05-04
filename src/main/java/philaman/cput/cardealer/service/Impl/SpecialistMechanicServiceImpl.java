@@ -24,11 +24,11 @@ public class SpecialistMechanicServiceImpl implements SpecialistMechanicService 
     private MechanicRepository mechanicRepository;
 
     @Override
-    public List<Mechanic> getSpecialityMechanic(String Speciality, String rating) {
+    public List<Mechanic> getSpecialityMechanic(String speciality, String rating) {
         List<Mechanic> mechanics = new ArrayList<>();
         List<Mechanic> allMechanics = mechanicRepository.findAll();
         for (Mechanic mechanic : allMechanics) {
-            if (mechanic.getRatings().equalsIgnoreCase(rating) && mechanic.getSpeciality().equalsIgnoreCase(rating)) {
+            if (mechanic.getRatings().equalsIgnoreCase(rating) && mechanic.getSpeciality().equalsIgnoreCase(speciality)) {
                 mechanics.add(mechanic);
             }
         }

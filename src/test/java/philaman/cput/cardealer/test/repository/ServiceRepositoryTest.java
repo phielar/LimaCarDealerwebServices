@@ -17,7 +17,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import philaman.cput.cardealer.app.config.AppConfig;
 import philaman.cput.cardealer.domain.Mechanic;
-import philaman.cput.cardealer.domain.Service;
+import philaman.cput.cardealer.domain.VehicleService;
 import philaman.cput.cardealer.domain.ServiceBooking;
 import philaman.cput.cardealer.repository.ServiceRepository;
 
@@ -41,19 +41,18 @@ public class ServiceRepositoryTest {
     public void createService() {
         repo = ctx.getBean(ServiceRepository.class);
 
-        List<Mechanic> mechanics = new ArrayList<>();
-        mechanics.add(new Mechanic.Builder("Electricity Installation").firstname("Phila").lastname("Manyika")
-                .ratings("Professional").build());
-        
+        Mechanic mechanics = new Mechanic.Builder("Electricity Installation").firstname("Phila").lastname("Manyika")
+                .ratings("Professional").build();
+
         List<ServiceBooking> booking = new ArrayList<>();
         booking.add(new ServiceBooking.Builder("13-Mar-2014").serviceType("Normal Service")
                 .description("Term Service, checking of the care to see if its still in a good condition for long distances")
                 .build());
         booking.add(new ServiceBooking.Builder("14-Mar-2014").serviceType("Repairs Service")
                 .description("Engine Stopped").build());
-        Service service = new Service.Builder("15-Mar-2014").name("Repairs").serviceBooking(booking)
+        VehicleService service = new VehicleService.Builder("15-Mar-2014").name("Repairs").serviceBooking(booking)
                 .report("The to was leaking and has been fixed.").mechanics(mechanics).hourRate(250).build();
-        
+
         repo.save(service);
         id = service.getId();
         Assert.assertNotNull(service);
@@ -62,16 +61,16 @@ public class ServiceRepositoryTest {
     @Test(dependsOnMethods = "createService")
     public void readService() {
         repo = ctx.getBean(ServiceRepository.class);
-        Service service = repo.findOne(id);
+        VehicleService service = repo.findOne(id);
         Assert.assertEquals(service.getName(), "Repairs");
     }
 
     @Test(dependsOnMethods = "readService")
     public void updateService() {
         repo = ctx.getBean(ServiceRepository.class);
-        Service service = repo.findOne(id);
+        VehicleService service = repo.findOne(id);
 
-        Service updateService = new Service.Builder("16-Apr-2014").service(service).name("Engine top, JV-Joints Repair")
+        VehicleService updateService = new VehicleService.Builder("16-Apr-2014").service(service).name("Engine top, JV-Joints Repair")
                 .build();
         repo.save(updateService);
         Assert.assertEquals(updateService.getName(), "Engine top, JV-Joints Repair");
@@ -80,10 +79,10 @@ public class ServiceRepositoryTest {
     @Test(dependsOnMethods = "updateService")
     public void deleteService() {
         repo = ctx.getBean(ServiceRepository.class);
-        Service service = repo.findOne(id);
+        VehicleService service = repo.findOne(id);
         repo.delete(service);
 
-        Service deleteService = repo.findOne(id);
+        VehicleService deleteService = repo.findOne(id);
         Assert.assertNull(deleteService);
     }
 

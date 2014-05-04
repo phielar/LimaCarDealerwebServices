@@ -28,11 +28,12 @@ public class Model implements Serializable {
     private String modelName;
     private String modelDescr;
     private String newFeatures;
-    private String topSpeeed;
-    private String releaseYear;
+    private int topSpeeed;
+    private int releaseYear;
     private String make;
     private String bodyType;
     private double price;
+    private boolean onSale;
 
     private Model() {
     }
@@ -48,6 +49,7 @@ public class Model implements Serializable {
         this.colour = build.colour;
         this.bodyType = build.bodyType;
         this.price = build.price;
+        this.onSale = build.onSale;
 
     }
 
@@ -57,12 +59,13 @@ public class Model implements Serializable {
         private String modelName;
         private String modelDescr;
         private String newFeatures;
-        private String topSpeeed;
-        private String releaseYear;
+        private int topSpeeed;
+        private int releaseYear;
         private String make;
         private Colour colour;
         private String bodyType;
         private double price;
+        private boolean onSale;
 
         public Builder(String modelName) {
             this.modelName = modelName;
@@ -70,6 +73,11 @@ public class Model implements Serializable {
 
         public Builder id(Long value) {
             id = value;
+            return this;
+        }
+
+        public Builder onSale(boolean value) {
+            onSale = value;
             return this;
         }
 
@@ -98,12 +106,12 @@ public class Model implements Serializable {
             return this;
         }
 
-        public Builder topSpeeed(String value) {
+        public Builder topSpeeed(int value) {
             topSpeeed = value;
             return this;
         }
 
-        public Builder releaseYear(String value) {
+        public Builder releaseYear(int value) {
             releaseYear = value;
             return this;
         }
@@ -127,6 +135,7 @@ public class Model implements Serializable {
             this.make = model.getMake();
             this.bodyType = model.getBodyType();
             this.price = model.getPrice();
+            this.onSale = model.isOnSale();
             return this;
         }
     }
@@ -137,6 +146,10 @@ public class Model implements Serializable {
 
     public String getModelName() {
         return modelName;
+    }
+
+    public boolean isOnSale() {
+        return onSale;
     }
 
     public double getPrice() {
@@ -155,11 +168,11 @@ public class Model implements Serializable {
         return colour;
     }
 
-    public String getTopSpeeed() {
+    public int getTopSpeeed() {
         return topSpeeed;
     }
 
-    public String getReleaseYear() {
+    public int getReleaseYear() {
         return releaseYear;
     }
 

@@ -8,6 +8,7 @@ package philaman.cput.cardealer.domain;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,9 +27,10 @@ public class OfferedService implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(unique = true)
     private String service;
     private double rate;
-    private String durationhr;
+    private double durationhr;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "OfferedServices_id")
     private List<ServiceBooking> serviceBooking;
@@ -49,7 +51,7 @@ public class OfferedService implements Serializable {
         private Long id;
         private String service;
         private double rate;
-        private String durationhr;
+        private double durationhr;
         private List<ServiceBooking> serviceBooking;
 
         public Builder(String service) {
@@ -71,7 +73,7 @@ public class OfferedService implements Serializable {
             return this;
         }
 
-        public Builder durationhr(String value) {
+        public Builder durationhr(double value) {
             durationhr = value;
             return this;
         }
@@ -107,7 +109,7 @@ public class OfferedService implements Serializable {
         return rate;
     }
 
-    public String getDurationhr() {
+    public double getDurationhr() {
         return durationhr;
     }
 

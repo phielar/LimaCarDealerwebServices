@@ -3,16 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package philaman.cput.cardealer.service;
 
 import java.util.List;
-import philaman.cput.cardealer.domain.Mechanic;
+import philaman.cput.cardealer.domain.Brand;
 
 /**
  *
  * @author phila
  */
-public interface SpecialistMechanicService {
+public interface BrandListService {
 
-    public List<Mechanic> getSpecialityMechanic(String speciality, String rating);
+    public List<Brand> getBrandList();
+    
 }

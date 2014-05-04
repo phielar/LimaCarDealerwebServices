@@ -15,13 +15,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author phila
  */
 @Entity
-public class Service implements Serializable {
+public class VehicleService implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -31,11 +32,11 @@ public class Service implements Serializable {
     @Column(nullable = false)
     private String sDate;
     private String report;
+    private double duration;
     @Column(nullable = false)
     private double hourRate;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "serrvice_id")
-    private List<Mechanic> mechanics;
+    @OneToOne
+    private Mechanic mechanics;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "serrvice_id")
     private List<Part> parts;
@@ -43,10 +44,10 @@ public class Service implements Serializable {
     @JoinColumn(name = "serrvice_id")
     private List<ServiceBooking> serviceBooking;
 
-    private Service() {
+    private VehicleService() {
     }
 
-    private Service(Builder build) {
+    private VehicleService(Builder build) {
         this.id = build.id;
         this.name = build.name;
         this.sDate = build.sDate;
@@ -55,6 +56,7 @@ public class Service implements Serializable {
         this.parts = build.parts;
         this.mechanics = build.mechanics;
         this.serviceBooking = build.serviceBooking;
+        this.duration = build.duration;
     }
 
     public static class Builder {
@@ -64,7 +66,8 @@ public class Service implements Serializable {
         private String sDate;
         private String report;
         private double hourRate;
-        private List<Mechanic> mechanics;
+        private double duration;
+        private Mechanic mechanics;
         private List<Part> parts;
         private List<ServiceBooking> serviceBooking;
 
@@ -82,13 +85,18 @@ public class Service implements Serializable {
             return this;
         }
 
-        public Builder mechanics(List<Mechanic> value) {
+        public Builder mechanics(Mechanic value) {
             mechanics = value;
             return this;
         }
 
         public Builder name(String value) {
             name = value;
+            return this;
+        }
+
+        public Builder duration(double value) {
+            duration = value;
             return this;
         }
 
@@ -107,7 +115,7 @@ public class Service implements Serializable {
             return this;
         }
 
-        public Builder service(Service service) {
+        public Builder service(VehicleService service) {
 
             this.id = service.getId();
             this.name = service.getName();
@@ -117,16 +125,21 @@ public class Service implements Serializable {
             this.mechanics = service.getMechanics();
             this.parts = service.getParts();
             this.serviceBooking = service.getServiceBooking();
+            this.duration = service.getDuration();
             return this;
         }
 
-        public Service build() {
-            return new Service(this);
+        public VehicleService build() {
+            return new VehicleService(this);
         }
     }
 
-    public List<Mechanic> getMechanics() {
+    public Mechanic getMechanics() {
         return mechanics;
+    }
+
+    public double getDuration() {
+        return duration;
     }
 
     public List<Part> getParts() {
@@ -167,10 +180,10 @@ public class Service implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Service)) {
+        if (!(object instanceof VehicleService)) {
             return false;
         }
-        Service other = (Service) object;
+        VehicleService other = (VehicleService) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

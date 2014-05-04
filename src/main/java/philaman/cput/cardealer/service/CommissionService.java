@@ -5,14 +5,12 @@
  */
 package philaman.cput.cardealer.service;
 
-import java.util.List;
-import philaman.cput.cardealer.domain.Mechanic;
-
 /**
  *
  * @author phila
  */
-public interface SpecialistMechanicService {
+public interface CommissionService {
 
-    public List<Mechanic> getSpecialityMechanic(String speciality, String rating);
+    public double getSaleCommission(String grade, double price);
+
 }

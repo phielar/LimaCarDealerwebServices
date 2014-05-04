@@ -13,6 +13,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import philaman.cput.cardealer.app.config.AppConfig;
+import philaman.cput.cardealer.domain.Contact;
 import philaman.cput.cardealer.domain.Mechanic;
 import philaman.cput.cardealer.repository.MechanicRepository;
 import philaman.cput.cardealer.service.SpecialistMechanicService;
@@ -37,17 +38,23 @@ public class SpecialistMechanicServiceTest {
     public void mechanicTest() {
         repo = ctx.getBean(MechanicRepository.class);
         service = ctx.getBean(SpecialistMechanicService.class);
-        Mechanic m = new Mechanic.Builder("Engine").ratings("intermediate").build();
-        Mechanic m1 = new Mechanic.Builder("Tyres & Windscreen").ratings("intermediate").build();
-        Mechanic m2 = new Mechanic.Builder("windscreen & Glass").ratings("intermediate").build();
-        Mechanic m3 = new Mechanic.Builder("Engine").ratings("Professional").build();
-        Mechanic m4 = new Mechanic.Builder("Engine").ratings("intermediate").build();
+        Contact c = new Contact.Builder("02168658").email("enLima@mail.com").build();
+        Contact c1 = new Contact.Builder("021686581").email("enLima1@mail.com").build();
+        Contact c2 = new Contact.Builder("021686582").email("enLima2@mail.com").build();
+        Contact c3 = new Contact.Builder("021686583").email("enLima3@mail.com").build();
+        Contact c4 = new Contact.Builder("021686584").email("enLima4@mail.com").build();
+
+        Mechanic m = new Mechanic.Builder("Engine").ratings("intermediate").contact(c).build();
+        Mechanic m1 = new Mechanic.Builder("Tyres & Windscreen").contact(c1).ratings("intermediate").build();
+        Mechanic m2 = new Mechanic.Builder("windscreen & Glass").contact(c2).ratings("intermediate").build();
+        Mechanic m3 = new Mechanic.Builder("Engine").contact(c3).ratings("Professional").build();
+        Mechanic m4 = new Mechanic.Builder("Engine").contact(c4).ratings("intermediate").build();
 
         repo.save(m);
-        /*repo.save(m1);
+        repo.save(m1);
         repo.save(m2);
         repo.save(m3);
-        repo.save(m4);*/
+        repo.save(m4);
 
         List<Mechanic> specialisMec = service.getSpecialityMechanic("Engine", "intermediate");
         Assert.assertEquals(2, specialisMec.size());
