@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="philaman.cput_CarDealer_war_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>philaman.cput.cardealer.domain.Branch</class>
+    <class>philaman.cput.cardealer.domain.RegionOffice</class>
+    <class>philaman.cput.cardealer.domain.Department</class>
+    <class>philaman.cput.cardealer.domain.Model</class>
+    <class>philaman.cput.cardealer.domain.Manufacturer</class>
+    <class>philaman.cput.cardealer.domain.Part</class>
+    <class>philaman.cput.cardealer.domain.Dependent</class>
+    <class>philaman.cput.cardealer.domain.SalesGrade</class>
+    <class>philaman.cput.cardealer.domain.ServiceBooking</class>
+    <class>philaman.cput.cardealer.domain.Service</class>
+    <class>philaman.cput.cardealer.domain.Brand</class>
+    <class>philaman.cput.cardealer.domain.Customer</class>
+    <class>philaman.cput.cardealer.domain.SalesPerson</class>
+    <class>philaman.cput.cardealer.domain.OfferedService</class>
+    <class>philaman.cput.cardealer.domain.Mechanic</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/Lima"/>
+      <property name="javax.persistence.jdbc.password" value="app"/>
+      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+      <property name="javax.persistence.jdbc.user" value="app"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+    </properties>
+  </persistence-unit>
+</persistence>
