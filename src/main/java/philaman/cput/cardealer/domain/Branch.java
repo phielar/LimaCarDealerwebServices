@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,9 +37,13 @@ public class Branch implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "Branch_id")
     private List<VehicleService> services;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "Branch_id")
     private List<Model> models;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Branch_id")
+    private List<Department> department;
+    
 
     private Branch(Builder build) {
         this.id = build.id;
@@ -62,13 +67,19 @@ public class Branch implements Serializable {
         private Address address;
         private List<VehicleService> services;
         private List<Model> models;
+        private List<Department> department;
 
         public Builder(String branchname) {
             this.branchname = branchname;
         }
-
+        
         public Builder id(Long value) {
             id = value;
+            return this;
+        }
+        
+        public Builder department(List<Department> value) {
+            department = value;
             return this;
         }
 
@@ -109,6 +120,7 @@ public class Branch implements Serializable {
             this.address = branch.getAddress();
             this.models = branch.getModels();
             this.services = branch.getServices();
+            this.department= branch.getDepartment();
             return this;
         }
 
@@ -120,6 +132,10 @@ public class Branch implements Serializable {
 
     public Address getAddress() {
         return address;
+    }
+
+    public List<Department> getDepartment() {
+        return department;
     }
 
     public Contact getContact() {

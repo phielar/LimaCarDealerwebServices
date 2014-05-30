@@ -80,7 +80,5 @@ public class BrandRepositoryTest {
 
     @AfterClass
     public void tearDownClass() throws Exception {
-        repo = ctx.getBean(BrandRepository.class);
-        repo.deleteAll();
     }
 }

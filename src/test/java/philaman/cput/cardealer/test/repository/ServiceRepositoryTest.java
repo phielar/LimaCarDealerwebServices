@@ -10,15 +10,13 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import philaman.cput.cardealer.app.config.AppConfig;
 import philaman.cput.cardealer.domain.Mechanic;
 import philaman.cput.cardealer.domain.VehicleService;
 import philaman.cput.cardealer.domain.ServiceBooking;
+import philaman.cput.cardealer.repository.MechanicRepository;
 import philaman.cput.cardealer.repository.ServiceRepository;
 
 /**
@@ -29,6 +27,7 @@ public class ServiceRepositoryTest {
 
     private static ApplicationContext ctx;
     private ServiceRepository repo;
+    private MechanicRepository repoM;
     private Long id;
 
     public ServiceRepositoryTest() {
@@ -44,9 +43,12 @@ public class ServiceRepositoryTest {
         Mechanic mechanics = new Mechanic.Builder("Electricity Installation").firstname("Phila").lastname("Manyika")
                 .ratings("Professional").build();
 
+        repoM = ctx.getBean(MechanicRepository.class);
+        repoM.save(mechanics);
+
         List<ServiceBooking> booking = new ArrayList<>();
         booking.add(new ServiceBooking.Builder("13-Mar-2014").serviceType("Normal Service")
-                .description("Term Service, checking of the care to see if its still in a good condition for long distances")
+                .description("Term Servicce, checking of the care to see if its still in a good condition for long distances")
                 .build());
         booking.add(new ServiceBooking.Builder("14-Mar-2014").serviceType("Repairs Service")
                 .description("Engine Stopped").build());
@@ -54,6 +56,7 @@ public class ServiceRepositoryTest {
                 .report("The to was leaking and has been fixed.").mechanics(mechanics).hourRate(250).build();
 
         repo.save(service);
+
         id = service.getId();
         Assert.assertNotNull(service);
     }
@@ -91,17 +94,4 @@ public class ServiceRepositoryTest {
         ctx = new AnnotationConfigApplicationContext(AppConfig.class);
     }
 
-    @AfterClass
-    public void tearDownClass() throws Exception {
-        repo = ctx.getBean(ServiceRepository.class);
-        repo.deleteAll();
-    }
-
-    @BeforeMethod
-    public void setUpMethod() throws Exception {
-    }
-
-    @AfterMethod
-    public void tearDownMethod() throws Exception {
-    }
 }

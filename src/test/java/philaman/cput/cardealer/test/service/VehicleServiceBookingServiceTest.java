@@ -12,10 +12,10 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import philaman.cput.cardealer.app.config.AppConfig;
 import philaman.cput.cardealer.domain.ServiceBooking;
 import philaman.cput.cardealer.repository.ServiceBookingRepository;
 import philaman.cput.cardealer.service.VehicleServiceBookingService;
+import philaman.cput.cardealer.test.AppConfigTest;
 
 /**
  *
@@ -63,7 +63,7 @@ public class VehicleServiceBookingServiceTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+        ctx = new AnnotationConfigApplicationContext(AppConfigTest.class);
     }
 
     @AfterMethod

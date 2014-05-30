@@ -5,10 +5,9 @@
  */
 package philaman.cput.cardealer.test.repository;
 
-import junit.framework.Assert;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.testng.annotations.AfterClass;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import philaman.cput.cardealer.app.config.AppConfig;
@@ -22,14 +21,14 @@ import philaman.cput.cardealer.repository.MechanicRepository;
  * @author phila
  */
 public class MechanicRepositoryTest {
-    
+
     private static ApplicationContext ctx;
     private Long id;
     private MechanicRepository repo;
-    
+
     public MechanicRepositoryTest() {
     }
-    
+
     @Test
     public void createMechanic() {
         repo = ctx.getBean(MechanicRepository.class);
@@ -37,6 +36,7 @@ public class MechanicRepositoryTest {
                 .city("Cape Town").province("Western Cape").postalCode("7088").build();
         Contact contact = new Contact.Builder("0215645").cell("0739452541").phone("0215462145")
                 .email("ManPhi@Liam.com").build();
+
         Mechanic mechanic = new Mechanic.Builder("Electricity Installation")
                 .firstname("Phila").lastname("Manyika")
                 .ratings("Professional").address(address)
@@ -45,7 +45,7 @@ public class MechanicRepositoryTest {
         id = mechanic.getId();
         Assert.assertNotNull(mechanic);
     }
-    
+
     @Test(dependsOnMethods = "createMechanic")
     public void readMechanic() {
         repo = ctx.getBean(MechanicRepository.class);
@@ -57,11 +57,11 @@ public class MechanicRepositoryTest {
     public void updateMechanic() {
         repo = ctx.getBean(MechanicRepository.class);
         Mechanic mechanic = repo.findOne(id);
-        
+
         Mechanic updateMechanic = new Mechanic.Builder("Electricity Installation")
                 .mechanic(mechanic).ratings("Expect").build();
         repo.save(updateMechanic);
-        Assert.assertEquals("Expect", updateMechanic.getRatings());        
+        Assert.assertEquals("Expect", updateMechanic.getRatings());
     }
 
     @Test(dependsOnMethods = "updateMechanic")
@@ -69,8 +69,8 @@ public class MechanicRepositoryTest {
         repo = ctx.getBean(MechanicRepository.class);
         Mechanic mechanic = repo.findOne(id);
         repo.delete(mechanic);
-        
-        Mechanic deleteMechanic=repo.findOne(id);
+
+        Mechanic deleteMechanic = repo.findOne(id);
         Assert.assertNull(deleteMechanic);
     }
 
@@ -78,10 +78,5 @@ public class MechanicRepositoryTest {
     public static void setUpClass() throws Exception {
         ctx = new AnnotationConfigApplicationContext(AppConfig.class);
     }
-    
-    @AfterClass
-    public void tearDownClass() throws Exception {
-        repo = ctx.getBean(MechanicRepository.class);
-        repo.deleteAll();
-    }
+
 }

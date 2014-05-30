@@ -5,16 +5,16 @@
  */
 package philaman.cput.cardealer.test.service;
 
-import junit.framework.Assert;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import philaman.cput.cardealer.app.config.AppConfig;
 import philaman.cput.cardealer.domain.OfferedService;
 import philaman.cput.cardealer.repository.OfferedServiceRepository;
 import philaman.cput.cardealer.service.ServicePriceService;
+import philaman.cput.cardealer.test.AppConfigTest;
 
 /**
  *
@@ -52,12 +52,12 @@ public class ServicePriceServiceTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+        ctx = new AnnotationConfigApplicationContext(AppConfigTest.class);
     }
 
     @AfterMethod
     public void tearDownMethod() throws Exception {
-        repo = ctx.getBean(OfferedServiceRepository.class);
-        repo.deleteAll();
+        /*repo = ctx.getBean(OfferedServiceRepository.class);
+         repo.deleteAll();*/
     }
 }

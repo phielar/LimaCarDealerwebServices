@@ -8,10 +8,7 @@ package philaman.cput.cardealer.test.repository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import philaman.cput.cardealer.app.config.AppConfig;
 import philaman.cput.cardealer.domain.Colour;
@@ -51,7 +48,7 @@ public class ModelRepositoryTest {
     public void readModel() {
         repo = ctx.getBean(ModelRepository.class);
         Model model = repo.findOne(id);
-        Assert.assertEquals("300", model.getTopSpeeed());
+        Assert.assertEquals(300, model.getTopSpeeed());
     }
 
     @Test(dependsOnMethods = "readModel")
@@ -61,10 +58,10 @@ public class ModelRepositoryTest {
 
         Model updatModel = new Model.Builder("GTI 7").model(model).topSpeeed(320).build();
         repo.save(updatModel);
-        Assert.assertEquals("320", updatModel.getTopSpeeed());
+        Assert.assertEquals(320, updatModel.getTopSpeeed());
     }
 
-    //@Test(dependsOnMethods = "updateModel")
+    @Test(dependsOnMethods = "updateModel")
     public void deleteModel() {
         repo = ctx.getBean(ModelRepository.class);
         Model model = repo.findOne(id);
@@ -77,19 +74,5 @@ public class ModelRepositoryTest {
     @BeforeClass
     public static void setUpClass() throws Exception {
         ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-    }
-
-    @AfterClass
-    public void tearDownClass() throws Exception {
-        repo = ctx.getBean(ModelRepository.class);
-        repo.deleteAll();
-    }
-
-    @BeforeMethod
-    public void setUpMethod() throws Exception {
-    }
-
-    @AfterMethod
-    public void tearDownMethod() throws Exception {
     }
 }

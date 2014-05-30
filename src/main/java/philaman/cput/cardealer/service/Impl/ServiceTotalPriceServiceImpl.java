@@ -23,14 +23,12 @@ public class ServiceTotalPriceServiceImpl implements ServiceTotalPriceService {
 
     @Autowired
     private ServiceRepository repository;
-    @Autowired
-    private PartRepository partRepository;
     
     @Override
     public double getServicePrice(Long id) {
         double price =-999;
         VehicleService service = repository.findOne(id);
-        List<Part> parts = partRepository.findAll();
+        List<Part> parts = service.getParts();
         price = service.getDuration() * service.getHourRate();
         for (Part part : parts) {
             price += part.getPurchasePrice();

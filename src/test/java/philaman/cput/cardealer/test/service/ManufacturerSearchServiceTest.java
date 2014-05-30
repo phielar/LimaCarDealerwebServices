@@ -12,12 +12,12 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import philaman.cput.cardealer.app.config.AppConfig;
 import philaman.cput.cardealer.domain.Address;
 import philaman.cput.cardealer.domain.Contact;
 import philaman.cput.cardealer.domain.Manufacturer;
 import philaman.cput.cardealer.repository.ManufacturerRepository;
 import philaman.cput.cardealer.service.ManufacturerSearchService;
+import philaman.cput.cardealer.test.AppConfigTest;
 
 /**
  *
@@ -60,7 +60,7 @@ public class ManufacturerSearchServiceTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+        ctx = new AnnotationConfigApplicationContext(AppConfigTest.class);
     }
 
     @AfterMethod

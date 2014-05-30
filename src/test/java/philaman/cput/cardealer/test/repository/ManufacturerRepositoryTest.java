@@ -8,13 +8,11 @@ package philaman.cput.cardealer.test.repository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import philaman.cput.cardealer.app.config.AppConfig;
 import philaman.cput.cardealer.domain.Address;
+import philaman.cput.cardealer.domain.Contact;
 import philaman.cput.cardealer.domain.Manufacturer;
 import philaman.cput.cardealer.repository.ManufacturerRepository;
 
@@ -38,8 +36,8 @@ public class ManufacturerRepositoryTest {
 
         Address address = new Address.Builder("452").street("Evenue Road").city("PE").province("EC")
                 .postalCode("7525").build();
-
-        Manufacturer manufacturer = new Manufacturer.Builder(address).name("VW Manufacturers")
+        Contact c = new Contact.Builder("02165845").email("phil@gmail.com").build();
+        Manufacturer manufacturer = new Manufacturer.Builder(address).name("VW Manufacturers").contact(c)
                 .build();
 
         repo.save(manufacturer);
@@ -78,19 +76,5 @@ public class ManufacturerRepositoryTest {
     @BeforeClass
     public static void setUpClass() throws Exception {
         ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-    }
-
-    @AfterClass
-    public void tearDownClass() throws Exception {
-        /*repo = ctx.getBean(ManufacturerRepository.class);
-        repo.deleteAll();*/
-    }
-
-    @BeforeMethod
-    public void setUpMethod() throws Exception {
-    }
-
-    @AfterMethod
-    public void tearDownMethod() throws Exception {
     }
 }

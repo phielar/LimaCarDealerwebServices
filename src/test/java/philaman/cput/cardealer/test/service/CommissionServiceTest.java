@@ -8,13 +8,13 @@ package philaman.cput.cardealer.test.service;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import philaman.cput.cardealer.app.config.AppConfig;
 import philaman.cput.cardealer.domain.SalesGrade;
 import philaman.cput.cardealer.repository.SalesGradeRepository;
 import philaman.cput.cardealer.service.CommissionService;
+import philaman.cput.cardealer.test.AppConfigTest;
 
 /**
  *
@@ -29,12 +29,9 @@ public class CommissionServiceTest {
     public CommissionServiceTest() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
     @Test
-    public void CommissionAmountTest() {
+    public void create() {
         repo = ctx.getBean(SalesGradeRepository.class);
-        service = ctx.getBean(CommissionService.class);
 
         SalesGrade grade = new SalesGrade.Builder("A").rate(10.65).build();
         SalesGrade grade1 = new SalesGrade.Builder("B").rate(5.65).build();
@@ -47,20 +44,32 @@ public class CommissionServiceTest {
         repo.save(grade2);
         repo.save(grade3);
         repo.save(grade4);
+    }
 
+    @Test(dependsOnMethods = "create")
+    public void CommissionAmountTest() {
+        service = ctx.getBean(CommissionService.class);
         double commAmount = service.getSaleCommission("C", 250000.0);
         Assert.assertEquals(commAmount, 12500.0, 0000.1);
 
     }
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-        ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+    @Test(dependsOnMethods = "create")
+    public void gradeRate() {
+        service = ctx.getBean(CommissionService.class);
+        double rate = service.getSalesCommissionRate("B");
+        Assert.assertEquals(rate, 5.56, 0000.2);
     }
 
-    @AfterMethod
-    public void tearDownMethod() throws Exception {
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+        ctx = new AnnotationConfigApplicationContext(AppConfigTest.class);
+    }
+
+    @AfterClass
+    public void tearDownClass() throws Exception {
         repo = ctx.getBean(SalesGradeRepository.class);
         repo.deleteAll();
     }
+
 }

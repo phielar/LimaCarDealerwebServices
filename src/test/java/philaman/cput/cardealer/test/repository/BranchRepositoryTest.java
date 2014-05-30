@@ -36,7 +36,7 @@ public class BranchRepositoryTest {
         repo = ctx.getBean(BranchRepository.class);
 
         Contact cs = new Contact.Builder("0215646").phone("021546865").email("info@LimaDealer.com").build();
-
+        
         Address address = new Address.Builder("l68 n3").street("septa").suburb("epping industry1")
                 .city("Cape Town").province("Western Cape").postalCode("5465").build();
 
@@ -84,7 +84,5 @@ public class BranchRepositoryTest {
     }
     @AfterClass
     public void tearDownClass() throws Exception{
-        repo=ctx.getBean(BranchRepository.class);
-        repo.deleteAll();
     }
 }

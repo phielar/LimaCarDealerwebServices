@@ -6,11 +6,14 @@
 package philaman.cput.cardealer.domain;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /**
@@ -33,6 +36,8 @@ public class SalesPerson implements Serializable {
     private int age;
     @OneToOne
     private SalesGrade grade;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Department department;
     private String hireDate;
 
     private SalesPerson() {
@@ -48,6 +53,7 @@ public class SalesPerson implements Serializable {
         this.salary = build.salary;
         this.comm = build.comm;
         this.grade = build.grade;
+        this.department = build.department;
     }
 
     public static class Builder {
@@ -57,6 +63,7 @@ public class SalesPerson implements Serializable {
         private String firstname;
         private String lastname;
         private double basicSalary;
+        private Department department;
         private double salary;
         private int age;
         private String hireDate;
@@ -64,6 +71,11 @@ public class SalesPerson implements Serializable {
 
         public Builder(String firstname) {
             this.firstname = firstname;
+        }
+
+        public Builder department(Department value) {
+            department = value;
+            return this;
         }
 
         public Builder lastname(String value) {
@@ -110,6 +122,7 @@ public class SalesPerson implements Serializable {
             this.hireDate = salesPerson.getHireDate();
             this.salary = salesPerson.getSalary();
             this.grade = salesPerson.getGrade();
+            this.department = salesPerson.getDepartment();
             return this;
         }
 
@@ -120,6 +133,10 @@ public class SalesPerson implements Serializable {
 
     public int getAge() {
         return age;
+    }
+
+    public Department getDepartment() {
+        return department;
     }
 
     public String getHireDate() {

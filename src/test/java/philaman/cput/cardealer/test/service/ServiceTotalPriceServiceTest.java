@@ -13,12 +13,12 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import philaman.cput.cardealer.app.config.AppConfig;
 import philaman.cput.cardealer.domain.Part;
 import philaman.cput.cardealer.domain.VehicleService;
 import philaman.cput.cardealer.repository.PartRepository;
 import philaman.cput.cardealer.repository.ServiceRepository;
 import philaman.cput.cardealer.service.ServiceTotalPriceService;
+import philaman.cput.cardealer.test.AppConfigTest;
 
 /**
  *
@@ -56,7 +56,7 @@ public class ServiceTotalPriceServiceTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+        ctx = new AnnotationConfigApplicationContext(AppConfigTest.class);
     }
 
     @AfterMethod

@@ -34,7 +34,7 @@ public class ServiceBookingRepositoryTest {
     public void createServiceBooking() {
         repo = ctx.getBean(ServiceBookingRepository.class);
         ServiceBooking booking = new ServiceBooking.Builder("13-Mar-2014").serviceType("Normal")
-                .description("Term Service, checking of the care to see if its still in a good condition for long distances")
+                .description("Term Service")
                 .build();
         repo.save(booking);
         id = booking.getId();

@@ -25,7 +25,7 @@ public class SalesGrade implements Serializable {
     private Long id;
     @Column(unique = true)
     private String grade;
-    @Column(nullable = false)
+    @Column(unique = true)
     private double rate;
 
     private SalesGrade() {

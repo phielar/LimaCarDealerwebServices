@@ -12,10 +12,10 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import philaman.cput.cardealer.app.config.AppConfig;
 import philaman.cput.cardealer.domain.Model;
 import philaman.cput.cardealer.repository.ModelRepository;
 import philaman.cput.cardealer.service.TotalVehicleService;
+import philaman.cput.cardealer.test.AppConfigTest;
 
 /**
  *
@@ -36,6 +36,8 @@ public class TotalVehicleServiceTest {
     @Test
     public void totalVehiclesTest() {
         repo = ctx.getBean(ModelRepository.class);
+        repo.deleteAll();
+        repo = ctx.getBean(ModelRepository.class);
         service = ctx.getBean(TotalVehicleService.class);
 
         Model model = new Model.Builder("3-series").make("BMW").bodyType("Sedan")
@@ -55,7 +57,7 @@ public class TotalVehicleServiceTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+        ctx = new AnnotationConfigApplicationContext(AppConfigTest.class);
     }
 
     @AfterMethod

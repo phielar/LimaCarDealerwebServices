@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package philaman.cput.cardealer.service.Impl;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import philaman.cput.cardealer.service.CommissionService;
  * @author phila
  */
 @Service
-public class CommissionServiceImpl implements CommissionService {
+public class CommissionServiceImpl implements CommissionService{
 
     @Autowired
     private SalesGradeRepository repository;
@@ -33,5 +34,45 @@ public class CommissionServiceImpl implements CommissionService {
         }
         return commission;
     }
+    
+    @Override
+    public double getSalesCommissionRate(String grade) {
+        double rate = -9999;
+        List<SalesGrade> allGrades = repository.findAll();
+        for (SalesGrade salesGrade1 : allGrades) {
+            if (salesGrade1.getGrade().equals(grade)) {
+                rate = salesGrade1.getRate();
+            }
+        }
+        return rate;
+    }  
+    
+    @Override
+    public SalesGrade find(Long id) {
+     return repository.findOne(id);
+    }
 
+    @Override
+    public SalesGrade persist(SalesGrade entity) {
+      return repository.save(entity);
+    }
+
+    @Override
+    public SalesGrade merge(SalesGrade entity) {
+       if(entity!=null)
+           repository.save(entity);
+       return null;
+    }
+
+    @Override
+    public void remove(SalesGrade entity) {
+        repository.delete(entity);
+    }
+
+    @Override
+    public List<SalesGrade> findAll() {
+     return repository.findAll();
+    }
+    
+    
 }

@@ -6,11 +6,15 @@
 package philaman.cput.cardealer.domain;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -27,6 +31,8 @@ public class Mechanic implements Serializable {
     private String lastname;
     private String speciality;
     private String ratings;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Department department;
     @Embedded
     private Contact contact;
     @Embedded
@@ -43,6 +49,7 @@ public class Mechanic implements Serializable {
         this.ratings = build.ratings;
         this.contact = build.contact;
         this.address = build.address;
+        this.department = build.department;
     }
 
     public static class Builder {
@@ -52,11 +59,17 @@ public class Mechanic implements Serializable {
         private String lastname;
         private String speciality;
         private String ratings;
+        private Department department;
         private Contact contact;
         private Address address;
 
         public Builder(String speciality) {
             this.speciality = speciality;
+        }
+
+        public Builder department(Department value) {
+            department = value;
+            return this;
         }
 
         public Builder firstname(String value) {
@@ -97,6 +110,7 @@ public class Mechanic implements Serializable {
             this.contact = mechanic.getContact();
             this.speciality = mechanic.getSpeciality();
             this.ratings = mechanic.getRatings();
+            this.department = mechanic.getDepartment();
             return this;
         }
 
@@ -112,6 +126,10 @@ public class Mechanic implements Serializable {
 
     public String getFirstname() {
         return firstname;
+    }
+
+    public Department getDepartment() {
+        return department;
     }
 
     public String getLastname() {

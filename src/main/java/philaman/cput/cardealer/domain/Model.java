@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -34,6 +35,9 @@ public class Model implements Serializable {
     private String bodyType;
     private double price;
     private boolean onSale;
+    @OneToOne
+    private Brand brand;
+    
 
     private Model() {
     }
@@ -50,6 +54,7 @@ public class Model implements Serializable {
         this.bodyType = build.bodyType;
         this.price = build.price;
         this.onSale = build.onSale;
+        this.brand= build.brand;
 
     }
 
@@ -66,11 +71,17 @@ public class Model implements Serializable {
         private String bodyType;
         private double price;
         private boolean onSale;
+        private Brand brand;
 
         public Builder(String modelName) {
             this.modelName = modelName;
         }
 
+         public Builder brand(Brand value) {
+            brand = value;
+            return this;
+        }
+         
         public Builder id(Long value) {
             id = value;
             return this;
@@ -136,6 +147,7 @@ public class Model implements Serializable {
             this.bodyType = model.getBodyType();
             this.price = model.getPrice();
             this.onSale = model.isOnSale();
+            this.brand=model.getBrand();
             return this;
         }
     }
@@ -146,6 +158,10 @@ public class Model implements Serializable {
 
     public String getModelName() {
         return modelName;
+    }
+
+    public Brand getBrand() {
+        return brand;
     }
 
     public boolean isOnSale() {
